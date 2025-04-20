@@ -23,7 +23,7 @@ export function Header() {
               href="#"
               className="text-gray-200 font-bold"
             >
-              Placeholder
+              Manage Students
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
