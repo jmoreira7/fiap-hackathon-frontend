@@ -44,21 +44,41 @@ export function ManageStudents() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setNewStudent((prev) => ({
-      ...prev,
-      [name]: name === "age" || name === "grade" ? Number(value) : value,
-    }));
+    if (name === "interests") {
+      const interestArray = value
+        .split(",")
+        .map((interest) => interest.trim());
 
-    if (selectedStudent) {
-      setSelectedStudent((prev) => ({
-        ...prev!,
+      setNewStudent((prev) => ({
+        ...prev,
+        interests: interestArray,
+      }));
+
+      if (selectedStudent) {
+        setSelectedStudent((prev) => ({
+          ...prev!,
+          interests: interestArray,
+        }));
+      }
+    } else {
+      setNewStudent((prev) => ({
+        ...prev,
         [name]: name === "age" || name === "grade" ? Number(value) : value,
       }));
+  
+      if (selectedStudent) {
+        setSelectedStudent((prev) => ({
+          ...prev!,
+          [name]: name === "age" || name === "grade" ? Number(value) : value,
+        }));
+      }
     }
   };
 
   const handleAddStudent = () => {
     const formattedDate = new Date().toISOString().split("T")[0];
+
+    console.log("New Student State Before POST:", newStudent);
 
     const studentToAdd = {
       name: newStudent.name,
@@ -66,7 +86,10 @@ export function ManageStudents() {
       grade: newStudent.grade,
       createDate: formattedDate,
       updateDate: formattedDate,
+      interests: newStudent.interests,
     };
+
+    console.log("Student Object to Add:", studentToAdd);
 
     api
       .post("/students", studentToAdd)
@@ -90,8 +113,9 @@ export function ManageStudents() {
 
   const handleEditStudent = () => {
     if (selectedStudent) {
-      api
-        .put(`/students/${selectedStudent._id}`, selectedStudent)
+      console.log("Selected Student Before PUT:", selectedStudent);
+
+      api.put(`/students/${selectedStudent._id}`, selectedStudent)
         .then((response) => {
           console.log("Student updated successfully:", response.data);
           setStudents((prev) =>
@@ -253,10 +277,10 @@ export function ManageStudents() {
           <Card
             key={student._id}
             className="w-50 h-70 bg-black/50 border border-gray-300 shadow-md cursor-pointer"
-            onClick={(() => {
+            onClick={() => {
               setSelectedStudent(student);
               setIsEditModalOpen(true);
-            })}
+            }}
           >
             <CardHeader>
               <CardTitle className="text-lg font-bold text-white overflow-hidden text-ellipsis whitespace-nowrap">
