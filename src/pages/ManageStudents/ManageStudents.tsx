@@ -49,12 +49,14 @@ export function ManageStudents() {
   };
 
   const handleAddStudent = () => {
+    const formattedDate = new Date().toISOString().split("T")[0];
+
     const studentToAdd = {
       name: newStudent.name,
       age: newStudent.age,
       grade: newStudent.grade,
-      createDate: new Date().toISOString(),
-      updateDate: new Date().toISOString(),
+      createDate: formattedDate,
+      updateDate: formattedDate,
     };
 
     api
