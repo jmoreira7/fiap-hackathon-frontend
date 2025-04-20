@@ -20,7 +20,7 @@ export function Header() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink
-              href="#"
+              href="/students"
               className="text-gray-200 font-bold"
             >
               Manage Students
