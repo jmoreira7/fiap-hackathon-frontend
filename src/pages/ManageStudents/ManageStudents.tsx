@@ -15,6 +15,7 @@ import { Student } from "@/utils/types";
 export function ManageStudents() {
   const [students, setStudents] = useState<Student[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [newStudent, setNewStudent] = useState<Student>({
     name: "",
     age: 0,
@@ -23,6 +24,7 @@ export function ManageStudents() {
     updateDate: "",
     interests: [],
   });
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
   useEffect(() => {
     console.log("Fetching students...");
@@ -46,6 +48,13 @@ export function ManageStudents() {
       ...prev,
       [name]: name === "age" || name === "grade" ? Number(value) : value,
     }));
+
+    if (selectedStudent) {
+      setSelectedStudent((prev) => ({
+        ...prev!,
+        [name]: name === "age" || name === "grade" ? Number(value) : value,
+      }));
+    }
   };
 
   const handleAddStudent = () => {
@@ -77,6 +86,44 @@ export function ManageStudents() {
       .catch((error) => {
         console.error("Error adding student:", error);
       });
+  };
+
+  const handleEditStudent = () => {
+    if (selectedStudent) {
+      api
+        .put(`/students/${selectedStudent._id}`, selectedStudent)
+        .then((response) => {
+          console.log("Student updated successfully:", response.data);
+          setStudents((prev) =>
+            prev.map((student) =>
+              student._id === selectedStudent._id ? response.data : student
+            )
+          );
+          setIsModalOpen(false);
+          setSelectedStudent(null);
+        })
+        .catch((error) => {
+          console.error("Error updating student:", error);
+        });
+    }
+  };
+
+  const handleDeleteStudent = () => {
+    if (selectedStudent) {
+      api
+        .delete(`/students/${selectedStudent._id}`)
+        .then(() => {
+          console.log("Student deleted successfully");
+          setStudents((prev) =>
+            prev.filter((student) => student._id !== selectedStudent._id)
+          );
+          setIsModalOpen(false);
+          setSelectedStudent(null);
+        })
+        .catch((error) => {
+          console.error("Error deleting student:", error);
+        });
+    }
   };
 
   return (
@@ -130,7 +177,11 @@ export function ManageStudents() {
             />
           </div>
           <DialogFooter>
-            <Button className="bg-blue-100" variant="secondary" onClick={() => setIsModalOpen(false)}>
+            <Button
+              className="bg-blue-100"
+              variant="secondary"
+              onClick={() => setIsModalOpen(false)}
+            >
               Cancel
             </Button>
             <Button onClick={handleAddStudent}>Add</Button>
@@ -138,11 +189,74 @@ export function ManageStudents() {
         </DialogContent>
       </Dialog>
 
+      {selectedStudent && (
+        <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="text-white">Edit Student</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 text-white">
+              <Input
+                name="name"
+                placeholder="Name"
+                value={selectedStudent.name}
+                onChange={handleInputChange}
+              />
+              <Input
+                name="age"
+                placeholder="Age"
+                type="number"
+                value={selectedStudent.age || ""}
+                onChange={handleInputChange}
+              />
+              <Input
+                name="grade"
+                placeholder="Grade"
+                type="number"
+                value={selectedStudent.grade || ""}
+                onChange={handleInputChange}
+              />
+              <Input
+                name="interests"
+                placeholder="Interests (comma-separated)"
+                value={selectedStudent.interests?.join(", ") || ""}
+                onChange={(e) =>
+                  setSelectedStudent((prev) => ({
+                    ...prev!,
+                    interests: e.target.value
+                      .split(",")
+                      .map((interest) => interest.trim()),
+                  }))
+                }
+              />
+            </div>
+            <DialogFooter>
+              <Button
+                className="bg-red-500 text-white"
+                onClick={handleDeleteStudent}
+              >
+                Delete
+              </Button>
+              <Button
+                className="bg-blue-500 text-white"
+                onClick={handleEditStudent}
+              >
+                Edit
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
+
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
-        {students.map((student, index) => (
+        {students.map((student) => (
           <Card
-            key={index}
-            className="w-50 h-70 bg-black/50 border border-gray-300 shadow-md"
+            key={student._id}
+            className="w-50 h-70 bg-black/50 border border-gray-300 shadow-md cursor-pointer"
+            onClick={(() => {
+              setSelectedStudent(student);
+              setIsEditModalOpen(true);
+            })}
           >
             <CardHeader>
               <CardTitle className="text-lg font-bold text-white overflow-hidden text-ellipsis whitespace-nowrap">
