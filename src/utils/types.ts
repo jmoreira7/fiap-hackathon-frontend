@@ -4,4 +4,5 @@ export interface Student {
     grade: number,
     createDate: string,
     updateDate: string,
+    interests?: string[] | null,
 }

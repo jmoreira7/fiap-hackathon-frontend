@@ -1,163 +1,29 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-
-const mockStudents = [
-  {
-    name: "John Doe",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Math, Science",
-  },
-  {
-    name: "Jane Smith",
-    age: 17,
-    grade: "11th Grade",
-    interests: "History, Literature",
-  },
-  {
-    name: "Alice Johnson",
-    age: 15,
-    grade: "9th Grade",
-    interests: "Art, Music",
-  },
-  {
-    name: "Bob Brown",
-    age: 18,
-    grade: "12th Grade",
-    interests: "Physics, Chemistry",
-  },
-  {
-    name: "Emily Davis",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Biology, Sports",
-  },
-  {
-    name: "John Doe",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Math, Science",
-  },
-  {
-    name: "Jane Smith",
-    age: 17,
-    grade: "11th Grade",
-    interests: "History, Literature",
-  },
-  {
-    name: "Alice Johnson",
-    age: 15,
-    grade: "9th Grade",
-    interests: "Art, Music",
-  },
-  {
-    name: "Bob Brown",
-    age: 18,
-    grade: "12th Grade",
-    interests: "Physics, Chemistry",
-  },
-  {
-    name: "Emily Davis",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Biology, Sports",
-  },
-  {
-    name: "John Doe",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Math, Science",
-  },
-  {
-    name: "Jane Smith",
-    age: 17,
-    grade: "11th Grade",
-    interests: "History, Literature",
-  },
-  {
-    name: "Alice Johnson",
-    age: 15,
-    grade: "9th Grade",
-    interests: "Art, Music",
-  },
-  {
-    name: "Bob Brown",
-    age: 18,
-    grade: "12th Grade",
-    interests: "Physics, Chemistry",
-  },
-  {
-    name: "Emily Davis",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Biology, Sports",
-  },
-  {
-    name: "John Doe",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Math, Science",
-  },
-  {
-    name: "Jane Smith",
-    age: 17,
-    grade: "11th Grade",
-    interests: "History, Literature",
-  },
-  {
-    name: "Alice Johnson",
-    age: 15,
-    grade: "9th Grade",
-    interests: "Art, Music",
-  },
-  {
-    name: "Bob Brown",
-    age: 18,
-    grade: "12th Grade",
-    interests: "Physics, Chemistry",
-  },
-  {
-    name: "Emily Davis",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Biology, Sports",
-  },
-  {
-    name: "John Doe",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Math, Science",
-  },
-  {
-    name: "Jane Smith",
-    age: 17,
-    grade: "11th Grade",
-    interests: "History, Literature",
-  },
-  {
-    name: "Alice Johnson",
-    age: 15,
-    grade: "9th Grade",
-    interests: "Art, Music",
-  },
-  {
-    name: "Bob Brown",
-    age: 18,
-    grade: "12th Grade",
-    interests: "Physics, Chemistry",
-  },
-  {
-    name: "Emily Davis",
-    age: 16,
-    grade: "10th Grade",
-    interests: "Biology, Sports",
-  },
-];
+import { useState, useEffect } from "react";
+import { api } from "@/utils/api";
+import { Student } from "@/utils/types";
 
 export function ManageStudents() {
+  const [students, setStudents] = useState<Student[]>([]);
+
+  useEffect(() => {
+    console.log("Fetching students...");
+
+    api.get('/students')
+      .then(response => {
+        console.log("Students fetched successfully:", response.data);
+
+        setStudents(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching students:", error);
+      });
+  }, []);
+
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen px-4">
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-64">
-        {mockStudents.map((student, index) => (
+    <main className="flex flex-col items-center min-h-screen px-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-80">
+        {students.map((student, index) => (
           <Card key={index} className="bg-black/50 border border-gray-300 shadow-md">
             <CardHeader>
               <CardTitle className="text-lg font-bold text-white">
