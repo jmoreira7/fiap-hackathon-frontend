@@ -271,7 +271,7 @@ export function ManageStudents() {
                 <strong>Grade:</strong> {student.grade}
               </p>
               <p>
-                <strong>Interests:</strong> {student.interests}
+                <strong>Interests:</strong> {student.interests?.join(", ")}
               </p>
             </CardContent>
           </Card>
