@@ -91,9 +91,9 @@ export function ManageStudents() {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add New Student</DialogTitle>
+            <DialogTitle className="text-white">Add New Student</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className="space-y-4 text-white">
             <Input
               name="name"
               placeholder="Name"
@@ -128,7 +128,7 @@ export function ManageStudents() {
             />
           </div>
           <DialogFooter>
-            <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+            <Button className="bg-blue-100" variant="secondary" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
             <Button onClick={handleAddStudent}>Add</Button>
