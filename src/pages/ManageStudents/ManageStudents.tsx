@@ -145,11 +145,11 @@ export function ManageStudents() {
             className="w-50 h-70 bg-black/50 border border-gray-300 shadow-md"
           >
             <CardHeader>
-              <CardTitle className="text-lg font-bold text-white">
+              <CardTitle className="text-lg font-bold text-white overflow-hidden text-ellipsis whitespace-nowrap">
                 {student.name}
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-white/80">
+            <CardContent className="text-white/80 overflow-hidden text-ellipsis whitespace-normal">
               <p>
                 <strong>Age:</strong> {student.age}
               </p>
