@@ -208,7 +208,7 @@ export function ManageStudents() {
             >
               Cancel
             </Button>
-            <Button onClick={handleAddStudent}>Add</Button>
+            <Button className="bg-blue-800" onClick={handleAddStudent}>Add</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -256,13 +256,13 @@ export function ManageStudents() {
             </div>
             <DialogFooter>
               <Button
-                className="bg-red-500 text-white"
+                className="bg-red-800 text-white"
                 onClick={handleDeleteStudent}
               >
                 Delete
               </Button>
               <Button
-                className="bg-blue-500 text-white"
+                className="bg-blue-800 text-white"
                 onClick={handleEditStudent}
               >
                 Edit
