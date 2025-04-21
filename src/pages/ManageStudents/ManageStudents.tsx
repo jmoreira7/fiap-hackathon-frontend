@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
 import { api } from "@/utils/api";
 import { Student } from "@/utils/types";
+import { Loader2 } from "lucide-react";
 
 export function ManageStudents() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -25,6 +26,7 @@ export function ManageStudents() {
     interests: [],
   });
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("Fetching students...");
@@ -38,6 +40,9 @@ export function ManageStudents() {
       })
       .catch((error) => {
         console.error("Error fetching students:", error);
+      })
+      .finally(() =>{
+        setLoading(false);
       });
   }, []);
 
@@ -149,6 +154,14 @@ export function ManageStudents() {
         });
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center content-center h-screen">
+        <Loader2 className="animate-spin" size={48} />
+      </div>
+    );
+  }
 
   return (
     <main className="flex flex-col items-center min-h-screen px-4">
