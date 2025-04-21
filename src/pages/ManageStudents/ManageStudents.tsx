@@ -41,7 +41,7 @@ export function ManageStudents() {
       .catch((error) => {
         console.error("Error fetching students:", error);
       })
-      .finally(() =>{
+      .finally(() => {
         setLoading(false);
       });
   }, []);
@@ -50,9 +50,7 @@ export function ManageStudents() {
     const { name, value } = e.target;
 
     if (name === "interests") {
-      const interestArray = value
-        .split(",")
-        .map((interest) => interest.trim());
+      const interestArray = value.split(",").map((interest) => interest.trim());
 
       setNewStudent((prev) => ({
         ...prev,
@@ -70,7 +68,7 @@ export function ManageStudents() {
         ...prev,
         [name]: name === "age" || name === "grade" ? Number(value) : value,
       }));
-  
+
       if (selectedStudent) {
         setSelectedStudent((prev) => ({
           ...prev!,
@@ -120,7 +118,8 @@ export function ManageStudents() {
     if (selectedStudent) {
       console.log("Selected Student Before PUT:", selectedStudent);
 
-      api.put(`/students/${selectedStudent._id}`, selectedStudent)
+      api
+        .put(`/students/${selectedStudent._id}`, selectedStudent)
         .then((response) => {
           console.log("Student updated successfully:", response.data);
           setStudents((prev) =>
@@ -167,7 +166,7 @@ export function ManageStudents() {
     <main className="flex flex-col items-center min-h-screen px-4">
       <div className="w-full max-w-3xl flex justify-center mt-24">
         <Button
-          className="bg-black text-white hover:bg-primary/90"
+          className="bg-black text-white hover:bg-primary/90 cursor-pointer"
           onClick={() => setIsModalOpen(true)}
         >
           Add Student
@@ -215,13 +214,15 @@ export function ManageStudents() {
           </div>
           <DialogFooter>
             <Button
-              className="bg-blue-100"
+              className="bg-blue-100 cursor-pointer"
               variant="secondary"
               onClick={() => setIsModalOpen(false)}
             >
               Cancel
             </Button>
-            <Button className="bg-blue-800" onClick={handleAddStudent}>Add</Button>
+            <Button className="bg-blue-800 cursor-pointer" onClick={handleAddStudent}>
+              Add
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -269,13 +270,13 @@ export function ManageStudents() {
             </div>
             <DialogFooter>
               <Button
-                className="bg-red-800 text-white"
+                className="bg-red-800 text-white cursor-pointer"
                 onClick={handleDeleteStudent}
               >
                 Delete
               </Button>
               <Button
-                className="bg-blue-800 text-white"
+                className="bg-blue-800 text-white cursor-pointer"
                 onClick={handleEditStudent}
               >
                 Edit

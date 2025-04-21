@@ -20,7 +20,7 @@ export function MainContent() {
           className="w-full h-64 text-white p-4 bg-black/50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
         />
         <div className="flex justify-center mt-4">
-          <Button className="bg-black/80 text-white hover:bg-primary/90">
+          <Button className="bg-black/80 text-white hover:bg-primary/90 cursor-pointer">
             Submit
           </Button>
         </div>
