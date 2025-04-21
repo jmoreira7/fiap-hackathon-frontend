@@ -16,7 +16,7 @@ export function MainContent() {
       </div>
       <div className="w-full">
         <Textarea
-          placeholder="Type your prompt here with questions and subjects..."
+          placeholder="Type your prompt here to create questions for all students, a specific student, or students with a specific interest..."
           className="w-full h-64 text-white p-4 bg-black/50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
         />
         <div className="flex justify-center mt-4">
