@@ -20,6 +20,8 @@ Antes de iniciar, verifique se seu computador possui instalado:
 
 - [Node.js](https://nodejs.org/pt);
 
+**Nota:** Este projeto depende de um backend para funcionar corretamente. Certifique-se de clonar e rodar o backend disponível no repositório [https://github.com/HeloiseSantos/fiap-hackathon-backend-api](https://github.com/HeloiseSantos/fiap-hackathon-backend-api). Siga as instruções no README do repositório para rodar o backend localmente.
+
 ## 🔧 Instalação
 
 Para executar o front-end do projeto em ambiente local, siga estas etapas, utilizando seu terminal preferido:
