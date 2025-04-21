@@ -4,8 +4,11 @@ import {
   NavigationMenuList,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
+import { useLocation } from "react-router-dom";
 
 export function Header() {
+  const location = useLocation();
+
   return (
     <header className="fixed top-0 left-0 w-screen bg-black py-3 flex justify-center">
       <NavigationMenu>
@@ -13,7 +16,11 @@ export function Header() {
           <NavigationMenuItem>
             <NavigationMenuLink
               href="/"
-              className="text-gray-200 font-bold"
+              className={`font-bold ${
+                location.pathname === "/"
+                  ? "text-black bg-white"
+                  : "text-gray-200"
+              }`}
             >
               Home
             </NavigationMenuLink>
@@ -21,7 +28,11 @@ export function Header() {
           <NavigationMenuItem>
             <NavigationMenuLink
               href="/students"
-              className="text-gray-200 font-bold"
+              className={`font-bold ${
+                location.pathname === "/students"
+                  ? "text-black bg-white"
+                  : "text-gray-200"
+              }`}
             >
               Manage Students
             </NavigationMenuLink>

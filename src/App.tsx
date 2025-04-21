@@ -1,19 +1,17 @@
 import "./App.css";
 import { Header } from "./components/Header/Header";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Routes, Route } from "react-router-dom";
 import { MainContent } from "./pages/MainContent/MainContent";
-import { ManageStudents } from './pages/ManageStudents/ManageStudents.tsx'
-
-const router = createBrowserRouter([
-  { path: '/', element: <MainContent /> },
-  { path: '/students', element: <ManageStudents /> },
-]);
+import { ManageStudents } from "./pages/ManageStudents/ManageStudents.tsx";
 
 function App() {
   return (
     <>
       <Header />
-      <RouterProvider router={router} />
+      <Routes>
+        <Route path="/" element={<MainContent />} />
+        <Route path="/students" element={<ManageStudents />} />
+      </Routes>
     </>
   );
 }
