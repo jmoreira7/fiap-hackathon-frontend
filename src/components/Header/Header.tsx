@@ -7,7 +7,7 @@ import {
 
 export function Header() {
   return (
-    <header className="fixed top-0 left-0 w-screen bg-black/50 py-3 flex justify-center">
+    <header className="fixed top-0 left-0 w-screen bg-black py-3 flex justify-center">
       <NavigationMenu>
         <NavigationMenuList className="flex gap-6">
           <NavigationMenuItem>
