@@ -64,7 +64,7 @@ A interface do projeto pode ser publicada em serviços como [Vercel](https://ver
 
 ## 🧑🏻‍💻👩🏻‍💻 Colaboradores
 
-Grupo 31, composto por:
+Grupo composto por:
 
 - Heloíse Silva Santos - https://github.com/HeloiseSantos
 - Jonas de Andrade Zuazo Moreira - https://github.com/jmoreira7
